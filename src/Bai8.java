@@ -4,25 +4,40 @@ public class Bai8 {
     public static void main(String[] args) {
         int mysteryNum = (int) (Math.random() * 99) + 1; //Tao so random
         Scanner input = new Scanner(System.in);
+        int answer;
         int min = 0, max = 99;
 
         System.out.println("(" + min + ", " + max + ") ?");
-        int Answer = input.nextInt();
+        do {
+            answer = input.nextInt();
+            if (answer > max || answer < min)
+                System.out.println("Out of range. Try again?");
+        }while (answer > max || answer < min);
+
         while (true) {
-            if (Answer > mysteryNum) {
+            if (max == min)
+                System.out.println("You lost!");
+            if (answer > mysteryNum) {
                 System.out.println("Too large.");
-                max = Answer;
+                max = answer - 1;
             }
-            else if (Answer < mysteryNum) {
+            else if (answer < mysteryNum) {
                 System.out.println("Too small. ");
-                min = Answer;
+                min = answer + 1;
             }
+
             else {
                 System.out.println("Bingo");
                 break;
             }
             System.out.println("(" + min + ", " + max + ") ?");
-            Answer = input.nextInt();
+            do {
+                answer = input.nextInt();
+                if (answer > max || answer < min) {
+                    System.out.println("Out of range. Try again?");
+                    System.out.println("(" + min + ", " + max + ") ?");
+                }
+            }while (answer > max || answer < min);
         }
     }
 }
